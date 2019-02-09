@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    #...
+  deploy:
+    working_directory: /home/warodom/workspace/matui
+    branches:
+      only:
+        - master
+    steps:
+      - checkout
+      - run:
+          name: run deployment script
+          command: npm run build
+      - add_ssh_keys:
+          fingerprints:
+            - "MD5:cd:89:b3:f8:87:0a:5f:ac:26:d8:eb:83:e2:a4:aa:56"
+      - run:
+          name: Fix host authenticity for production server
+          command: ssh-keyscan kpi.phuket.psu.ac.th >> ~/.ssh/known_hosts
+      - run:
+          name: Deploy app
+          command: scp -r build coc@kpi.phuket.psu.ac.th:/home/warodom/workspace/public/
