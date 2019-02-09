@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  deploy:
       - run:
           name: run build script
           command: npm run build
