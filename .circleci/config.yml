@@ -1,18 +1,15 @@
 version: 2
 jobs:
   deploy:
-      - run:
-          name: run build script
-          command: npm run build
     working_directory: /home/warodom/workspace/matui
     branches:
       only:
         - master
     steps:
       - checkout
-#      - run:
-#          name: run deployment script
-#          command: npm run build
+      - run:
+          name: run deployment script
+          command: npm run build
       - add_ssh_keys:
           fingerprints:
             - "MD5:cd:89:b3:f8:87:0a:5f:ac:26:d8:eb:83:e2:a4:aa:56"
